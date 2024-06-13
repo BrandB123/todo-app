@@ -1,4 +1,52 @@
-body{
-    background-color: blue;
-    color: white;
+*{
+    margin: 0;
+    padding: 0;
+    border: 1px solid #000;
+}
+
+.main-container{
+    display: grid; /* encapsulates project-list and todo-container */
+    grid-template: 1fr 15fr / 100%;
+}
+
+.project-list{
+    display: flex; /* equal sizing for all project tabs */
+}
+
+.project-list-item{
+    flex: 1 1 auto;
+}
+
+.todo-container{
+    display: grid; /* encapsulates todo-list and todo-description */
+    grid-template: 100% / 1fr 4fr;
+
+}
+
+.todo-list{
+    display: grid; /* encapsulates all todo list items */
+    grid-template: repeat(auto-fit, 50px) / 1fr;
+}
+
+.todo-description{
+    display: grid;
+    grid-template: 95% 5% / 1fr 1fr;
+    grid-template-areas: 
+        "description-text description-text"
+        "edit-button delete-button";
+}
+
+.description-text{
+    grid-area: description-text;
+}
+
+.edit-button{
+    grid-area: edit-button;
+    margin-left: 10px;
+}
+
+.delete-button{
+    grid-area: delete-button;
+    margin-left: auto;
+    margin-right: 10px;
 }
