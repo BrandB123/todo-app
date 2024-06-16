@@ -6,27 +6,28 @@
     <title>MySchedule App</title>
 </head>
 <body>
+    <div class="header">MySchedule</div>
     <div class="main-container">
 	    <div class="project-list">
             <!-- DYNAMICALLY CREATE PROJECT DIVS -->
-            <div class="project-list-item">Today</div> <!-- for testing -->
-            <div class="project-list-item">This Week</div> <!-- for testing -->
-            <div class="project-list-item">This Month</div> <!-- for testing -->
-            <div class="project-list-item">This Year</div> <!-- for testing -->
+            <!-- <div class="project-list-item">Today</div> for testing -->
+            <!-- <div class="project-list-item">This Week</div> for testing -->
+            <!-- <div class="project-list-item active">This Month</div> for testing -->
+            <!-- <div class="project-list-item">This Year</div> for testing -->
         </div>
 	    <div class="todo-container">
 	        <div class="todo-list">
                 <!-- DYNAMICALLY CREATE TO DO LIST FOR ACTIVE PROJECT -->
-                <div>To Do</div>
-                <div>To Do</div>
-                <div>To Do</div>
-                <div>To Do</div>
-                <div>To Do</div>
+                <div class="todo-list-item">To Do</div>
+                <div class="todo-list-item">To Do</div>
+                <div class="todo-list-item active">To Do</div>
+                <div class="todo-list-item">To Do</div>
+                <div class="todo-list-item">To Do</div>
             </div>
 	        <div class="todo-description">
                 <div class="description-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas sit alias cum debitis velit earum, perspiciatis quidem nobis reiciendis, quo nulla inventore vero ad nostrum non qui sed ipsum dolorem.</div>
-	            <div class="edit-button"><img src="EDIT ICON"></div>
-	            <div class="delete-button"><img src="DELETE ICON"></div>
+	            <button class="edit-button"><img src="../src/text-box-edit-outline.svg" class="svg"></button>
+	            <button class="delete-button"><img src="../src/trash-can-outline.svg" class="svg"></button>
 	        </div>
 	    </div>
     </div>
