@@ -1,9 +1,9 @@
 let createProject =  (projectName) => {
     let title = projectName;
+    let status = false;
     let todoItems = [];
     let createItem = (title, description, status) => {
-        //let editItem = (property, content) => {this[property] = content};
-        let item = {title, description, status/*, editItem*/};
+        let item = {title, description, status};
         todoItems.push(item);
     }
     let editItem = (itemTitle, property, content) => {
@@ -20,7 +20,7 @@ let createProject =  (projectName) => {
             todoItems.splice(index, 1);
             }
     }
-    return {title, todoItems, createItem, editItem, deleteItem}
+    return {title, status, todoItems, createItem, editItem, deleteItem}
 }
 
 export { createProject };

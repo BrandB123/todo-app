@@ -1,24 +1,56 @@
 // import { projectList } from './projectList.js';
 // import { createProject } from './projectCreator.js';
 let DOMController = (projectArrayObject) => {
-// create an array for projects to be stored in
-    //let Projects = projectList();
 
 // create function to display current Projects object info
     // function to display projects
     function displayProjects(listOfProjects) {    
         let projectListDiv = document.querySelector(".project-list");
         listOfProjects.ProjectArray.forEach((project) => {
-            let projectListItem = document.createElement("div");
-            projectListItem.classList.add("project-list-item");
-            projectListItem.textContent = project.title;
-            projectListDiv.appendChild(projectListItem);
+            let listOfProjectsItem = document.createElement("div");
+            listOfProjectsItem.classList.add("project-list-item");
+            listOfProjectsItem.textContent = project.title;
+            projectListDiv.appendChild(listOfProjectsItem);
         })
     }
 
     displayProjects(projectArrayObject);
-    // function to display todo items(titles and add button)
+
+    // function to display todo items(titles and add button) for active project
+    function displayProjectItems(listOfProjects){    
+        let projectListItemsDiv = document.querySelector(".todo-list");
+        listOfProjects.ProjectArray.forEach((project) => {                          // iterate through projects
+            // let projectListItemsDiv = document.querySelector(".todo-list");
+            //project.todoItems.forEach((project) => {
+                if (project.status === true){
+                    project.todoItems.forEach((item) => {
+                        let ProjectTodoItem = document.createElement("div");
+                        ProjectTodoItem.classList.add("todo-list-item");
+                        ProjectTodoItem.textContent = item.title;
+                        projectListItemsDiv.appendChild(ProjectTodoItem);
+                    })
+                }
+            //})
+        });
+    }
+    displayProjectItems(projectArrayObject);
+
+
     // function to display todo descriptions
+    function displayTodoItemDescription(listOfProjects){
+        listOfProjects.ProjectArray.forEach((project) => {
+            if (project.status === true){
+                project.todoItems.forEach((item) => {
+                    if (item.status === true){
+                        let activeDescription = document.querySelector(".description-text");
+                        activeDescription.textContent = item.description
+                    }
+                });
+            }
+        });
+    }
+
+    displayTodoItemDescription(projectArrayObject);
 
 
 //  create eventListener and function for adding projects to the project list

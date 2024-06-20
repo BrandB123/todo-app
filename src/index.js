@@ -3,62 +3,6 @@ import { projectList } from './projectList.js';
 import { createProject } from './projectCreator.js';
 import { DOMController } from './DOMController.js';
 
-
-
-// //project object module
-// let createProject =  (projectName) => {
-//     let title = projectName;
-//     let todoItems = [];
-//     let createItem = (title, description, status) => {
-//         //let editItem = (property, content) => {this[property] = content};
-//         let item = {title, description, status/*, editItem*/};
-//         todoItems.push(item);
-//     }
-//     let editItem = (itemTitle, property, content) => {
-//         todoItems.map((item) => {
-//             if (item.title === itemTitle){
-//                 item[property] = content;
-//             }
-//         });
-//     }
-//     let deleteItem = (itemTitle) => {
-//         let itemTitles = todoItems.map((item) => item.title);
-//         if (itemTitles.includes(itemTitle)){
-//             let index = itemTitles.indexOf(itemTitle);
-//             todoItems.splice(index, 1);
-//             }
-//     }
-//     return {title, todoItems, createItem, editItem, deleteItem}
-// }
-
-
-
-
-// Projects Object module
-// let ProjectsList = () => {
-//     let ProjectArray = [];
-//     let addProject = (projectObject) => ProjectArray.push(projectObject);
-//     let deleteProject = (projectTitle) => {
-//         let projectTitles = ProjectArray.map((project) => project.title);
-//         if (projectTitles.includes(projectTitle)){
-//             let index = projectTitles.indexOf(projectTitle);
-//             ProjectArray.splice(index, 1);
-//         }
-//     }
-//     return {ProjectArray, addProject, deleteProject}
-// }
-
-
-
-
-
-
-
-
-
-
-
-
 // create an array for projects to be stored in
 let Projects = projectList();
 
@@ -70,17 +14,23 @@ Projects.addProject(secondProject);
 let thirdProject = createProject("This Month");
 Projects.addProject(thirdProject);
 
+// set a project as the active one, simulating it is clicked
+secondProject.status = true;
+
+// add todo items to projects
+firstProject.createItem("1-1", "first project, first todo item", true)
+firstProject.createItem("1-2", "first project, second todo item", false)
+firstProject.createItem("1-3", "first project, third todo item", false)
+secondProject.createItem("2-1", "second project, first todo item", false)
+secondProject.createItem("2-2", "second project, second todo item", true)
+secondProject.createItem("2-3", "second project, third todo item", false)
+thirdProject.createItem("3-1", "third project, first todo item", false)
+thirdProject.createItem("3-2", "third project, second todo item", false)
+thirdProject.createItem("3-3", "third project, third todo item", true)
+
 // cause them to be displayed in the app
-// let projectListDiv = document.querySelector(".project-list");
-// Projects.ProjectArray.forEach((project) => {
-//     let projectListItem = document.createElement("div");
-//     projectListItem.classList.add("project-list-item");
-//     projectListItem.textContent = project.title;
-//     projectListDiv.appendChild(projectListItem);
-// })
-
-
 document.addEventListener("DOMContentLoaded", DOMController(Projects));
+
 
 
 
