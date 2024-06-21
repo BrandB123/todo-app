@@ -1,11 +1,15 @@
 // import { projectList } from './projectList.js';
 // import { createProject } from './projectCreator.js';
+
+// Need to return lots of different DOMController Methods for updating various parts of the screen
+
 let DOMController = (projectArrayObject) => {
 
 // create function to display current Projects object info
     // function to display projects
     function displayProjects(listOfProjects) {    
         let projectListDiv = document.querySelector(".project-list");
+        projectListDiv.textContent = "";
         listOfProjects.ProjectArray.forEach((project) => {
             let listOfProjectsItem = document.createElement("div");
             listOfProjectsItem.classList.add("project-list-item");
@@ -19,6 +23,7 @@ let DOMController = (projectArrayObject) => {
     // function to display todo items(titles and add button) for active project
     function displayProjectItems(listOfProjects){    
         let projectListItemsDiv = document.querySelector(".todo-list");
+        projectListItemsDiv.textContent = "";
         listOfProjects.ProjectArray.forEach((project) => {                          // iterate through projects
             // let projectListItemsDiv = document.querySelector(".todo-list");
             //project.todoItems.forEach((project) => {

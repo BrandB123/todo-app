@@ -15,7 +15,7 @@ let thirdProject = createProject("This Month");
 Projects.addProject(thirdProject);
 
 // set a project as the active one, simulating it is clicked
-secondProject.status = true;
+firstProject.status = true;
 
 // add todo items to projects
 firstProject.createItem("1-1", "first project, first todo item", true)
@@ -30,6 +30,41 @@ thirdProject.createItem("3-3", "third project, third todo item", true)
 
 // cause them to be displayed in the app
 document.addEventListener("DOMContentLoaded", DOMController(Projects));
+
+
+let ProjectsListDiv = document.querySelector(".project-list");
+function eventLoop(div){
+    div.addEventListener("click", (event) => {
+        let target = event.target.textContent; //obtains project title
+        Projects.ProjectArray.forEach((project) => {
+            project.title === target ? project.status = true : project.status = false;
+        });
+        DOMController(Projects);
+        eventLoop(div)
+    });
+}
+
+
+let todoListDiv = document.querySelector(".todo-list");
+function todoEventLoop(div){
+    div.addEventListener("click", (event) => {
+        let target = event.target.textContent; //obtains project title
+        Projects.ProjectArray.forEach((project) => {
+            if (project.status === true){
+                project.todoItems.forEach((item) => {
+                    item.title === target ? item.status = true : item.status = false;
+                })
+            }
+        });
+        DOMController(Projects);
+        todoEventLoop(div);
+    });
+}
+
+
+eventLoop(ProjectsListDiv);
+todoEventLoop(todoListDiv);
+
 
 
 
