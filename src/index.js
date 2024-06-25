@@ -6,6 +6,7 @@ import { DOMController } from './DOMController.js';
 // create an array for projects to be stored in
 let Projects = projectList();
 
+
 // add projects to the empty array
 let firstProject = createProject("Today");
 Projects.addProject(firstProject);
@@ -14,39 +15,40 @@ Projects.addProject(secondProject);
 let thirdProject = createProject("This Month");
 Projects.addProject(thirdProject);
 
+
 // set a project as the active one, simulating it is clicked
 firstProject.status = true;
+
 
 // add todo items to projects
 firstProject.createItem("1-1", "first project, first todo item", true)
 firstProject.createItem("1-2", "first project, second todo item", false)
 firstProject.createItem("1-3", "first project, third todo item", false)
-secondProject.createItem("2-1", "second project, first todo item", false)
-secondProject.createItem("2-2", "second project, second todo item", true)
+secondProject.createItem("2-1", "second project, first todo item", true)
+secondProject.createItem("2-2", "second project, second todo item", false)
 secondProject.createItem("2-3", "second project, third todo item", false)
-thirdProject.createItem("3-1", "third project, first todo item", false)
+thirdProject.createItem("3-1", "third project, first todo item", true)
 thirdProject.createItem("3-2", "third project, second todo item", false)
-thirdProject.createItem("3-3", "third project, third todo item", true)
+thirdProject.createItem("3-3", "third project, third todo item", false)
 
-// cause them to be displayed in the app
+// DISPLAY CONTENT ON LOAD
 document.addEventListener("DOMContentLoaded", DOMController(Projects));
 
-
+// DISPLAY ON CLICKING A PROJECT
 let ProjectsListDiv = document.querySelector(".project-list");
-function eventLoop(div){
+function displayProjects(div){
     div.addEventListener("click", (event) => {
         let target = event.target.textContent; //obtains project title
         Projects.ProjectArray.forEach((project) => {
             project.title === target ? project.status = true : project.status = false;
         });
         DOMController(Projects);
-        eventLoop(div)
     });
 }
 
-
+// DISPLAY ON CLICKING A TODO ITEM
 let todoListDiv = document.querySelector(".todo-list");
-function todoEventLoop(div){
+function displayTodoItems(div){
     div.addEventListener("click", (event) => {
         let target = event.target.textContent; //obtains project title
         Projects.ProjectArray.forEach((project) => {
@@ -57,13 +59,34 @@ function todoEventLoop(div){
             }
         });
         DOMController(Projects);
-        todoEventLoop(div);
     });
 }
 
 
-eventLoop(ProjectsListDiv);
-todoEventLoop(todoListDiv);
+// DISPLAY ON ADD PROJECT
+
+
+// DISPLAY ON ADD TODO ITEM
+function editProjects(){
+    ProjectsListDiv.addEventListener("mouseover", (event) => {
+        event.target.children[1].style.visibility = "visible";
+    });
+    ProjectsListDiv.addEventListener("mouseout", (event) => {
+        event.target.children[1].style.visibility = "hidden";
+    });
+}
+
+
+
+// DISPLAY ON DELETE PROJECT
+// DISPLAY ON DELETE TODO ITEM
+// DISPLAY ON EDIT PROJECT
+// DISPLAY ON EDIT TODO ITEM
+
+
+displayProjects(ProjectsListDiv);
+displayTodoItems(todoListDiv);
+editProjects();
 
 
 

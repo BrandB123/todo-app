@@ -42,7 +42,28 @@ body{
     background-color: #555;
     color: #ccc;
     text-align: center;
+    display: grid;
+    grid-template: 1fr / 5fr 4fr;
+
+
 }
+
+.project-name{
+    text-align: right;
+}
+
+.project-edit-button{
+    background-color: rgb(0, 0, 0, 0%);
+    color: #ccc;
+    border: none;
+    padding: 0 0 3px 0;
+    text-align: right;
+    padding-right: 10px;
+    font-size: 18px;
+    visibility: hidden;
+}
+
+
 
 .todo-container{
     display: grid; /* encapsulates todo-list and todo-description */
