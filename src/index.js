@@ -4,7 +4,7 @@ import { createProject } from './projectCreator.js';
 import { DOMController } from './DOMController.js';
 
 // create an array for projects to be stored in
-let Projects = projectList();
+const Projects = projectList();
 
 
 // add projects to the empty array
@@ -35,21 +35,21 @@ thirdProject.createItem("3-3", "third project, third todo item", false)
 document.addEventListener("DOMContentLoaded", DOMController(Projects));
 
 // DISPLAY ON CLICKING A PROJECT
-let ProjectsListDiv = document.querySelector(".project-list");
-function displayProjects(div){
-    div.addEventListener("click", (event) => {
+const ProjectsListDiv = document.querySelector(".project-list");
+//function displayProjects(div){
+    ProjectsListDiv.addEventListener("click", (event) => {
         let target = event.target.textContent; //obtains project title
         Projects.ProjectArray.forEach((project) => {
             project.title === target ? project.status = true : project.status = false;
         });
         DOMController(Projects);
     });
-}
+//}
 
 // DISPLAY ON CLICKING A TODO ITEM
-let todoListDiv = document.querySelector(".todo-list");
-function displayTodoItems(div){
-    div.addEventListener("click", (event) => {
+const todoListDiv = document.querySelector(".todo-list");
+//function displayTodoItems(div){
+    todoListDiv.addEventListener("click", (event) => {
         let target = event.target.textContent; //obtains project title
         Projects.ProjectArray.forEach((project) => {
             if (project.status === true){
@@ -60,13 +60,14 @@ function displayTodoItems(div){
         });
         DOMController(Projects);
     });
-}
+//}
 
 
 // DISPLAY ON ADD PROJECT
 
 
 // DISPLAY ON ADD TODO ITEM
+/*
 function editProjects(){
     ProjectsListDiv.addEventListener("mouseover", (event) => {
         event.target.children[1].style.visibility = "visible";
@@ -75,18 +76,45 @@ function editProjects(){
         event.target.children[1].style.visibility = "hidden";
     });
 }
+*/
 
 
 
-// DISPLAY ON DELETE PROJECT
 // DISPLAY ON DELETE TODO ITEM
-// DISPLAY ON EDIT PROJECT
+const deleteButton = document.querySelector(".delete-button");
+
+deleteButton.addEventListener("click", () => {
+    // find active project
+    Projects.ProjectArray.forEach((project) => {
+        if (project.status === true){
+            //find active item
+            project.todoItems.forEach((item) => {
+                if (item.status === true){
+                    // call deleteitem on active item in active project
+                    project.deleteItem(item.title)
+                }
+            })
+        } 
+    });
+    DOMController(Projects);
+})
+
+
 // DISPLAY ON EDIT TODO ITEM
+const editButton = document.querySelector(".edit-button");
+editButton.addEventListener("click", () => {
+    // display form for editing request
+    const editForm = document.querySelector(".todo-edit");
+    editForm.style.visibility = "visible";
+
+    // find active project
+    //project.editItem(itemTitle, property, content)
+});
 
 
-displayProjects(ProjectsListDiv);
-displayTodoItems(todoListDiv);
-editProjects();
+
+//displayProjects(ProjectsListDiv);
+//displayTodoItems(todoListDiv);
 
 
 

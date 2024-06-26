@@ -5,16 +5,17 @@ let DOMController = (projectArrayObject) => {
         let projectListDiv = document.querySelector(".project-list");
         projectListDiv.textContent = "";
         listOfProjects.ProjectArray.forEach((project) => {
-            let listOfProjectsItem = document.createElement("div");
+            let listOfProjectsItem = document.createElement("button");
             project.status === true ? listOfProjectsItem.classList.add("project-list-item", "active") : listOfProjectsItem.classList.add("project-list-item");
-            let projectNameDiv = document.createElement("div");
+            /*let projectNameDiv = document.createElement("div");
             let projectEditDiv = document.createElement("button");
             projectNameDiv.classList.add("project-name");
             projectEditDiv.classList.add("project-edit-button");
             projectNameDiv.textContent = project.title;
             projectEditDiv.textContent = "..."
             listOfProjectsItem.appendChild(projectNameDiv);
-            listOfProjectsItem.appendChild(projectEditDiv);
+            listOfProjectsItem.appendChild(projectEditDiv);*/
+            listOfProjectsItem.textContent = project.title;
             projectListDiv.appendChild(listOfProjectsItem);
         })
     }
@@ -28,7 +29,7 @@ let DOMController = (projectArrayObject) => {
         listOfProjects.ProjectArray.forEach((project) => {
                 if (project.status === true){
                     project.todoItems.forEach((item) => {
-                        let ProjectTodoItem = document.createElement("div");
+                        let ProjectTodoItem = document.createElement("button");
                         item.status === true ? ProjectTodoItem.classList.add("todo-list-item", "active") : ProjectTodoItem.classList.add("todo-list-item");
                         ProjectTodoItem.textContent = item.title;
                         projectListItemsDiv.appendChild(ProjectTodoItem);

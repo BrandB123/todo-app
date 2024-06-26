@@ -9,26 +9,26 @@
     <div class="header">MySchedule</div>
     <div class="main-container">
 	    <div class="project-list">
-            <!-- DYNAMICALLY CREATE PROJECT DIVS -->
-            <!-- <div class="project-list-item">Today</div> for testing -->
-            <!-- <div class="project-list-item">This Week</div> for testing -->
-            <!-- <div class="project-list-item active">This Month</div> for testing -->
-            <!-- <div class="project-list-item">This Year</div> for testing -->
         </div>
 	    <div class="todo-container">
 	        <div class="todo-list">
-                <!-- DYNAMICALLY CREATE TO DO LIST FOR ACTIVE PROJECT -->
-                <!-- <div class="todo-list-item">To Do</div>
-                <div class="todo-list-item">To Do</div>
-                <div class="todo-list-item active">To Do</div>
-                <div class="todo-list-item">To Do</div>
-                <div class="todo-list-item">To Do</div> -->
             </div>
 	        <div class="todo-description">
                 <div class="description-text"></div>
 	            <button class="edit-button"><img src="../src/text-box-edit-outline.svg" class="svg"></button>
 	            <button class="delete-button"><img src="../src/trash-can-outline.svg" class="svg"></button>
 	        </div>
+            <form class="todo-edit">
+                <label class="edit-property">Select a field to update:</label>
+                <select>
+                    <option>Title</option>
+                    <option>Status</option>
+                    <option>Description</option>
+                </select>
+                <label class="edit-content">What should this be changed to?</label>
+                <textarea rows="4" cols="40" placeholder="What value should be here"></textarea>
+                <button type="submit" class="edit-submit">Submit</button>
+            </form>
 	    </div>
     </div>
 </body>

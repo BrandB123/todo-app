@@ -42,27 +42,11 @@ body{
     background-color: #555;
     color: #ccc;
     text-align: center;
-    display: grid;
-    grid-template: 1fr / 5fr 4fr;
-
-
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
 }
-
-.project-name{
-    text-align: right;
-}
-
-.project-edit-button{
-    background-color: rgb(0, 0, 0, 0%);
-    color: #ccc;
-    border: none;
-    padding: 0 0 3px 0;
-    text-align: right;
-    padding-right: 10px;
-    font-size: 18px;
-    visibility: hidden;
-}
-
 
 
 .todo-container{
@@ -85,6 +69,7 @@ body{
     border-bottom: 1px solid #000;
     padding: 15px 0px;
     text-align: center;
+    background-color: #555;
 }
 
 .todo-list-item.active, .project-list-item.active{
@@ -123,3 +108,56 @@ body{
     background-color: #333;
     border: none;
 }
+
+.todo-edit{
+    position: fixed;
+    left: 30%;
+    background-color: white;
+    width: 40%;
+    box-shadow: 0 0 50vw 50vw rgb(0, 0, 0, 50%);
+    color: #333;
+    background-color: #ccc;
+    visibility: hidden;
+    padding: 0 20px 20px 20px;
+    border-radius: 10px;
+    display: grid;
+    align-items: center;
+    grid-template: 1fr 1fr 1fr 1fr/ 2fr 3fr;
+    grid-template-areas: 
+        "edit-property select-input"
+        "edit-content edit-content"
+        "textarea-input textarea-input"
+        "edit-submit edit-submit";
+    font-size: 20px;
+}
+
+.edit-property{
+    grid-area: edit-property;
+}
+
+select{
+    grid-area: select-input;
+    height: 30px;
+}
+
+.edit-content{
+    grid-area: edit-content;
+}
+
+textarea{
+    grid-area: textarea-input;
+    padding: 5px;
+    font-size: 16px;
+}
+
+.edit-submit{
+    grid-area: edit-submit
+}
+
+
+
+/*
+.todo-edit>input{
+    margin: 20px;
+}
+*/

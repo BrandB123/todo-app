@@ -18,6 +18,7 @@ let createProject =  (projectName) => {
         if (itemTitles.includes(itemTitle)){
             let index = itemTitles.indexOf(itemTitle);
             todoItems.splice(index, 1);
+            todoItems[0].status = true;
             }
     }
     return {title, status, todoItems, createItem, editItem, deleteItem}

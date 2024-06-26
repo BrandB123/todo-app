@@ -8,7 +8,7 @@ let projectList = () => {
             ProjectArray.splice(index, 1);
         }
     }
-    return {ProjectArray, addProject, deleteProject, status}
+    return {ProjectArray, addProject, deleteProject}
 }
 
 
