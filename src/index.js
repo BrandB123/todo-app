@@ -6,7 +6,6 @@ import { DOMController } from './DOMController.js';
 // create an array for projects to be stored in
 const Projects = projectList();
 
-
 // add projects to the empty array
 let firstProject = createProject("Today");
 Projects.addProject(firstProject);
@@ -15,55 +14,51 @@ Projects.addProject(secondProject);
 let thirdProject = createProject("This Month");
 Projects.addProject(thirdProject);
 
-
-// set a project as the active one, simulating it is clicked
-firstProject.status = true;
-
-
 // add todo items to projects
-firstProject.createItem("1-1", "first project, first todo item", true)
-firstProject.createItem("1-2", "first project, second todo item", false)
-firstProject.createItem("1-3", "first project, third todo item", false)
-secondProject.createItem("2-1", "second project, first todo item", true)
-secondProject.createItem("2-2", "second project, second todo item", false)
-secondProject.createItem("2-3", "second project, third todo item", false)
-thirdProject.createItem("3-1", "third project, first todo item", true)
-thirdProject.createItem("3-2", "third project, second todo item", false)
-thirdProject.createItem("3-3", "third project, third todo item", false)
+firstProject.createItem("1-1", "first project, first todo item")
+firstProject.createItem("1-2", "first project, second todo item")
+firstProject.createItem("1-3", "first project, third todo item")
+secondProject.createItem("2-1", "second project, first todo item")
+secondProject.createItem("2-2", "second project, second todo item")
+secondProject.createItem("2-3", "second project, third todo item")
+thirdProject.createItem("3-1", "third project, first todo item")
+thirdProject.createItem("3-2", "third project, second todo item")
+thirdProject.createItem("3-3", "third project, third todo item")
 
 // DISPLAY CONTENT ON LOAD
-document.addEventListener("DOMContentLoaded", DOMController(Projects));
+document.addEventListener("DOMContentLoaded", () => {
+    Projects.ProjectArray[0].status = true;
+    Projects.ProjectArray[0].todoItems[0].status = true;
+    DOMController(Projects)
+});
 
 // DISPLAY ON CLICKING A PROJECT
 const ProjectsListDiv = document.querySelector(".project-list");
-//function displayProjects(div){
-    ProjectsListDiv.addEventListener("click", (event) => {
-        let target = event.target.textContent; //obtains project title
-        Projects.ProjectArray.forEach((project) => {
-            project.title === target ? project.status = true : project.status = false;
-        });
-        DOMController(Projects);
+ProjectsListDiv.addEventListener("click", (event) => {
+    let target = event.target.textContent;
+    Projects.ProjectArray.forEach((project) => {
+        project.title === target ? project.status = true : project.status = false;
+        project.todoItems.forEach((item) => {item.status = false});
+        project.todoItems[0].status = true;
     });
-//}
+    DOMController(Projects);
+});
+
 
 // DISPLAY ON CLICKING A TODO ITEM
 const todoListDiv = document.querySelector(".todo-list");
-//function displayTodoItems(div){
-    todoListDiv.addEventListener("click", (event) => {
-        let target = event.target.textContent; //obtains project title
-        Projects.ProjectArray.forEach((project) => {
-            if (project.status === true){
-                project.todoItems.forEach((item) => {
-                    item.title === target ? item.status = true : item.status = false;
-                })
-            }
-        });
-        DOMController(Projects);
+todoListDiv.addEventListener("click", (event) => {
+    let target = event.target.textContent; //obtains project title
+    Projects.ProjectArray.forEach((project) => {
+        if (project.status === true){
+            project.todoItems.forEach((item) => {
+                item.title === target ? item.status = true : item.status = false;
+            })
+        }
     });
-//}
+    DOMController(Projects);
+});
 
-
-// DISPLAY ON ADD PROJECT
 
 
 // DISPLAY ON ADD TODO ITEM
@@ -102,55 +97,42 @@ deleteButton.addEventListener("click", () => {
 
 // DISPLAY ON EDIT TODO ITEM
 const editButton = document.querySelector(".edit-button");
+const editForm = document.querySelector(".todo-edit");
 editButton.addEventListener("click", () => {
+    
     // display form for editing request
-    const editForm = document.querySelector(".todo-edit");
     editForm.style.visibility = "visible";
+    editSubmit.addEventListener("click", editFormSubmit);
+});
 
+const editSubmit = document.querySelector(".edit-submit");
+
+function editFormSubmit(event){
+    event.preventDefault();
+    // get select value
+	let editSelect = document.querySelector(".edit-select");
+	// get textarea value
+	let editTextArea = document.querySelector(".edit-textarea");
+	
     // find active project
-    //project.editItem(itemTitle, property, content)
+	Projects.ProjectArray.forEach((project) => {
+	    if (project.status === true){
+		    project.todoItems.forEach((item) => {
+		        if (item.status === true){
+                    let itemProperty = editSelect.value.toLowerCase();
+                    project.editItem(item.title, itemProperty, editTextArea.value);
+                }
+	        });
+        };
+    });
+    editTextArea.value = "";
+    editForm.style.visibility = "hidden";
+	DOMController(Projects);
+    editSubmit.removeEventListener("click", editFormSubmit);
+};
+
+const closeEditForm = document.querySelector(".edit-close");
+closeEditForm.addEventListener("click", (event) => {
+    event.preventDefault();
+    editForm.style.visibility = "HIDDEN";
 });
-
-
-
-//displayProjects(ProjectsListDiv);
-//displayTodoItems(todoListDiv);
-
-
-
-
-
-
-
-
-
-// testing creation of a project, creation of a todo item, editing a to do item, and deleting a todo item
-/*let Projects = [];
-
-let createProjectList = document.querySelector(".project-list");
-createProjectList.addEventListener("click", () => {
-    let testProject = createProject("Test Project");
-    Projects.push(testProject);
-    console.log(testProject);
-    console.log(testProject.todoItems);
-});
-
-let addItem = document.querySelector(".todo-list");
-addItem.addEventListener("click", () => {
-    Projects[0].createItem("todo1", "this is my first todo item", false);
-    console.log(Projects[0].todoItems);
-});
-
-let editItem = document.querySelector(".edit-button");
-editItem.addEventListener("click", () => {
-    Projects[0].editItem("todo1", "status", true);
-    console.log(Projects[0].todoItems);
-});
-
-let deleteItem = document.querySelector(".delete-button");
-deleteItem.addEventListener("click", () => {
-    Projects[0].deleteItem("todo1");
-    console.log(Projects[0].todoItems);
-});*/
-
-// DOMcontroller object module

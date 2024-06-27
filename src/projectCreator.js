@@ -2,8 +2,8 @@ let createProject =  (projectName) => {
     let title = projectName;
     let status = false;
     let todoItems = [];
-    let createItem = (title, description, status) => {
-        let item = {title, description, status};
+    let createItem = (title, description) => {
+        let item = {title, description, status : "false"};
         todoItems.push(item);
     }
     let editItem = (itemTitle, property, content) => {
