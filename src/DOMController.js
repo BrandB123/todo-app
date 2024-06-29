@@ -7,14 +7,6 @@ let DOMController = (projectArrayObject) => {
         listOfProjects.ProjectArray.forEach((project) => {
             let listOfProjectsItem = document.createElement("button");
             project.status === true ? listOfProjectsItem.classList.add("project-list-item", "active") : listOfProjectsItem.classList.add("project-list-item");
-            /*let projectNameDiv = document.createElement("div");
-            let projectEditDiv = document.createElement("button");
-            projectNameDiv.classList.add("project-name");
-            projectEditDiv.classList.add("project-edit-button");
-            projectNameDiv.textContent = project.title;
-            projectEditDiv.textContent = "..."
-            listOfProjectsItem.appendChild(projectNameDiv);
-            listOfProjectsItem.appendChild(projectEditDiv);*/
             listOfProjectsItem.textContent = project.title;
             projectListDiv.appendChild(listOfProjectsItem);
         })
@@ -29,11 +21,23 @@ let DOMController = (projectArrayObject) => {
         listOfProjects.ProjectArray.forEach((project) => {
                 if (project.status === true){
                     project.todoItems.forEach((item) => {
-                        let ProjectTodoItem = document.createElement("button");
-                        item.status === true ? ProjectTodoItem.classList.add("todo-list-item", "active") : ProjectTodoItem.classList.add("todo-list-item");
-                        ProjectTodoItem.textContent = item.title;
-                        projectListItemsDiv.appendChild(ProjectTodoItem);
+                        if (item.title !== "+"){
+                            let ProjectTodoItem = document.createElement("button");
+                            item.status === true ? ProjectTodoItem.classList.add("todo-list-item", "active") : ProjectTodoItem.classList.add("todo-list-item");
+                            ProjectTodoItem.textContent = item.title;
+                            projectListItemsDiv.appendChild(ProjectTodoItem);                            
+                        }
                     })
+                    let AddingTodoItem = document.createElement("button");
+                    project.todoItems[0].status === true ? AddingTodoItem.classList.add("todo-list-item", "active", "add-button") : AddingTodoItem.classList.add("todo-list-item", "add-button");
+                    AddingTodoItem.textContent = project.todoItems[0].title;
+                    projectListItemsDiv.appendChild(AddingTodoItem);
+                    const addButton = document.querySelector(".add-button");
+                    const addForm = document.querySelector(".todo-add");    
+                    addButton.addEventListener("click", () => {
+                        addForm.style.visibility = "visible";
+                
+                    });
                 }
         });
     }
@@ -45,9 +49,17 @@ let DOMController = (projectArrayObject) => {
         listOfProjects.ProjectArray.forEach((project) => {
             if (project.status === true){
                 project.todoItems.forEach((item) => {
+                    let editButton = document.querySelector(".edit-button");
+                    let deleteButton = document.querySelector(".delete-button");
                     if (item.status === true){
                         let activeDescription = document.querySelector(".description-text");
                         activeDescription.textContent = item.description
+                        editButton.style.visibility = "visible";
+                        deleteButton.style.visibility = "visible";
+                    }
+                    if (item.title === "+"){
+                        editButton.style.visibility = "hidden";
+                        deleteButton.style.visibility = "hidden";
                     }
                 });
             }
@@ -55,6 +67,7 @@ let DOMController = (projectArrayObject) => {
     }
 
     displayTodoItemDescription(projectArrayObject);
+
 
     return {DOMController}
 }

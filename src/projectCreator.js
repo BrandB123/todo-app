@@ -1,7 +1,7 @@
 let createProject =  (projectName) => {
     let title = projectName;
     let status = false;
-    let todoItems = [];
+    let todoItems = [{title: "+", description: "", status: false}];
     let createItem = (title, description) => {
         let item = {title, description, status : "false"};
         todoItems.push(item);
@@ -18,7 +18,7 @@ let createProject =  (projectName) => {
         if (itemTitles.includes(itemTitle)){
             let index = itemTitles.indexOf(itemTitle);
             todoItems.splice(index, 1);
-            todoItems[0].status = true;
+            todoItems[1] !== undefined ? todoItems[1].status = true : todoItems[0].status = true;
             }
     }
     return {title, status, todoItems, createItem, editItem, deleteItem}

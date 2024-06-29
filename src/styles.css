@@ -158,3 +158,64 @@ textarea{
     border-bottom: 1px solid #333;
     border-left: 1px solid #333;
 }
+
+.todo-add{
+    position: fixed;
+    left: 30%;
+    background-color: white;
+    width: 40%;
+    box-shadow: 0 0 50vw 50vw rgb(0, 0, 0, 50%);
+    color: #333;
+    background-color: #ccc;
+    visibility: hidden;
+    padding: 5px 15px 5px;
+    border-radius: 5px;
+    display: grid;
+    align-items: center;
+    grid-template: 1fr 1fr 1fr 3fr 1fr/ 1fr;
+    grid-template-areas: 
+        "add-title"
+        "add-title-input"
+        "add-description"
+        "add-textarea"
+        "add-submit";
+    font-size: 20px;
+}
+
+.add-title{
+    grid-area: add-title;
+}
+
+.add-title-input{
+    grid-area: add-title-input;
+    height: 30px;
+}
+
+.add-description{
+    grid-area: add-description;
+}
+
+.add-textarea{
+    grid-area: add-textarea;
+    padding: 5px;
+    font-size: 16px;
+}
+
+.add-close{
+    position: absolute;
+    border-top-right-radius: 5px;
+    color: black;
+    top: 0px;
+    right: 0px;
+    height: 25px;
+    width: 25px;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 1px solid #333;
+    border-left: 1px solid #333;
+}
+
+.add-submit{
+    grid-area: add-submit;
+}
+
