@@ -2,11 +2,13 @@ import './styles.css';
 import { projectList } from './projectList.js';
 import { createProject } from './projectCreator.js';
 import { DOMController } from './DOMController.js';
+import { storageHandling } from './storage.js';
 
 // create an array for projects to be stored in
 const Projects = projectList();
+const STORAGE = storageHandling();
 
-// add projects to the empty array
+// add preset projects to the Projects array
 let firstProject = createProject("Today");
 Projects.addProject(firstProject);
 let secondProject = createProject("This Week");
@@ -15,6 +17,10 @@ let thirdProject = createProject("This Month");
 Projects.addProject(thirdProject);
 
 // add todo items to projects
+if (localStorage.length > 0){
+    STORAGE.getStoragePairs(Projects.ProjectArray);
+}
+
 /*
 firstProject.createItem("1-1", "first project, first todo item")
 firstProject.createItem("1-2", "first project, second todo item")
@@ -30,6 +36,7 @@ thirdProject.createItem("3-3", "third project, third todo item")
 
 // DISPLAY CONTENT ON LOAD
 document.addEventListener("DOMContentLoaded", () => {
+    //STORAGE.getStoragePairs
     Projects.ProjectArray[0].status = true;
     if (Projects.ProjectArray[0].todoItems[1]){
         Projects.ProjectArray[0].todoItems[1].status = true;
@@ -89,6 +96,7 @@ addSubmit.addEventListener("click", (event) => {
     addDescription.value = "";
     addForm.style.visibility = "hidden";
     DOMController(Projects);
+    STORAGE.setStoragePairs(Projects.ProjectArray);
 });
 
         
@@ -115,6 +123,7 @@ deleteButton.addEventListener("click", () => {
         } 
     });
     DOMController(Projects);
+    localStorage.clear();
 })
 
 
