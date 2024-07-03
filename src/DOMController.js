@@ -1,6 +1,7 @@
+//import { projectList } from "./projectList";
+
 let DOMController = (projectArrayObject) => {
 
-    // function to display projects
     function displayProjects(listOfProjects) {    
         let projectListDiv = document.querySelector(".project-list");
         projectListDiv.textContent = "";
@@ -9,12 +10,18 @@ let DOMController = (projectArrayObject) => {
             project.status === true ? listOfProjectsItem.classList.add("project-list-item", "active") : listOfProjectsItem.classList.add("project-list-item");
             listOfProjectsItem.textContent = project.title;
             projectListDiv.appendChild(listOfProjectsItem);
+
+            listOfProjectsItem.addEventListener("mouseover", (event) => {
+                event.target.style.backgroundColor = "#333";
+            });
+            listOfProjectsItem.addEventListener("mouseout", (event) => {
+                project.status === true ? event.target.style.backgroundColor = "#333" : event.target.style.backgroundColor = "#000";
+            });
         })
     }
 
     displayProjects(projectArrayObject);
 
-    // function to display todo items for active project
     function displayProjectItems(listOfProjects){    
         let projectListItemsDiv = document.querySelector(".todo-list");
         projectListItemsDiv.textContent = "";
@@ -25,26 +32,36 @@ let DOMController = (projectArrayObject) => {
                             let ProjectTodoItem = document.createElement("button");
                             item.status === true ? ProjectTodoItem.classList.add("todo-list-item", "active") : ProjectTodoItem.classList.add("todo-list-item");
                             ProjectTodoItem.textContent = item.title;
-                            projectListItemsDiv.appendChild(ProjectTodoItem);                            
-                        }
-                    })
+                            projectListItemsDiv.appendChild(ProjectTodoItem); 
+                            ProjectTodoItem.addEventListener("mouseover", (event) => {
+                                event.target.style.backgroundColor = "#333";
+                            }); 
+                            ProjectTodoItem.addEventListener("mouseout", (event) => {
+                                item.status === true ? event.target.style.backgroundColor = "#333" : event.target.style.backgroundColor = "#000";
+                            });
+                        };
+                    });
                     let AddingTodoItem = document.createElement("button");
                     project.todoItems[0].status === true ? AddingTodoItem.classList.add("todo-list-item", "active", "add-button") : AddingTodoItem.classList.add("todo-list-item", "add-button");
                     AddingTodoItem.textContent = project.todoItems[0].title;
                     projectListItemsDiv.appendChild(AddingTodoItem);
+                    AddingTodoItem.addEventListener("mouseover", (event) => {
+                        event.target.style.backgroundColor = "#222";
+                    });
+                    AddingTodoItem.addEventListener("mouseout", (event) => {
+                        event.target.style.backgroundColor = "#000";
+                    });
                     const addButton = document.querySelector(".add-button");
                     const addForm = document.querySelector(".todo-add");    
                     addButton.addEventListener("click", () => {
                         addForm.style.visibility = "visible";
-                
                     });
-                }
+                };
         });
     }
     displayProjectItems(projectArrayObject);
 
 
-    // function to display todo descriptions
     function displayTodoItemDescription(listOfProjects){
         listOfProjects.ProjectArray.forEach((project) => {
             if (project.status === true){

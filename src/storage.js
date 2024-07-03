@@ -1,7 +1,7 @@
 let storageHandling = () => {
-    // SET UP LOCALSTORAGE
     // check if localStorage is compatible and set up localStorage on window
 
+    // SET UP LOCALSTORAGE
     let setStoragePairs = (projectArray) => {
         projectArray.forEach((project) => {
             let storageKey = `project${projectArray.indexOf(project)}`;
@@ -22,7 +22,6 @@ let storageHandling = () => {
     }
 
     // GET DATA FROM LOCALSTORAGE
-    // get data already stored in local storage if there is data already saved there
     let getStoragePairs = (projectArray) => {
         projectArray.forEach((project) => {
             // get project from storage
@@ -38,9 +37,6 @@ let storageHandling = () => {
             };
         }); 
     }
-
-    // UPDATE LOCALSTORAGE
-    // function to update the values in localStorage each time the DOM is updated
 
     return {setStoragePairs, getStoragePairs}
 }

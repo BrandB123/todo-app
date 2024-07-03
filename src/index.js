@@ -45,6 +45,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     DOMController(Projects)
     // addTodoListeners();
+    //let buttons = document.querySelectorAll("button");
+    //buttons.forEach((button) => button.addEventListener("hover", () => {this.style.backgroundColor = "#222"}));
 });
 
 
@@ -124,6 +126,7 @@ deleteButton.addEventListener("click", () => {
     });
     DOMController(Projects);
     localStorage.clear();
+    STORAGE.setStoragePairs(Projects.ProjectArray);
 })
 
 
@@ -155,6 +158,7 @@ function editFormSubmit(event){
     editTextArea.value = "";
     editForm.style.visibility = "hidden";
 	DOMController(Projects);
+    STORAGE.setStoragePairs(Projects.ProjectArray);
     editSubmit.removeEventListener("click", editFormSubmit);
 };
 
