@@ -4,9 +4,11 @@ import { createProject } from './projectCreator.js';
 import { DOMController } from './DOMController.js';
 import { storageHandling } from './storage.js';
 
+
 // create an array for projects to be stored in
 const Projects = projectList();
 const STORAGE = storageHandling();
+
 
 // add preset projects to the Projects array
 let firstProject = createProject("Today");
@@ -16,27 +18,15 @@ Projects.addProject(secondProject);
 let thirdProject = createProject("This Month");
 Projects.addProject(thirdProject);
 
+
 // add todo items to projects
 if (localStorage.length > 0){
     STORAGE.getStoragePairs(Projects.ProjectArray);
 }
 
-/*
-firstProject.createItem("1-1", "first project, first todo item")
-firstProject.createItem("1-2", "first project, second todo item")
-firstProject.createItem("1-3", "first project, third todo item")
-secondProject.createItem("2-1", "second project, first todo item")
-secondProject.createItem("2-2", "second project, second todo item")
-secondProject.createItem("2-3", "second project, third todo item")
-thirdProject.createItem("3-1", "third project, first todo item")
-thirdProject.createItem("3-2", "third project, second todo item")
-thirdProject.createItem("3-3", "third project, third todo item")
-*/
-
 
 // DISPLAY CONTENT ON LOAD
 document.addEventListener("DOMContentLoaded", () => {
-    //STORAGE.getStoragePairs
     Projects.ProjectArray[0].status = true;
     if (Projects.ProjectArray[0].todoItems[1]){
         Projects.ProjectArray[0].todoItems[1].status = true;
@@ -44,9 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
         Projects.ProjectArray[0].todoItems[0].status = true;
     }
     DOMController(Projects)
-    // addTodoListeners();
-    //let buttons = document.querySelectorAll("button");
-    //buttons.forEach((button) => button.addEventListener("hover", () => {this.style.backgroundColor = "#222"}));
 });
 
 
@@ -66,7 +53,7 @@ ProjectsListDiv.addEventListener("click", (event) => {
 // DISPLAY ON CLICKING A TODO ITEM
 const todoListDiv = document.querySelector(".todo-list");
 todoListDiv.addEventListener("click", (event) => {
-    let target = event.target.textContent; //obtains project title
+    let target = event.target.textContent;
     Projects.ProjectArray.forEach((project) => {
         if (project.status === true){
             project.todoItems.forEach((item) => {
@@ -112,13 +99,10 @@ closeAddForm.addEventListener("click", (event) => {
 const deleteButton = document.querySelector(".delete-button");
 
 deleteButton.addEventListener("click", () => {
-    // find active project
     Projects.ProjectArray.forEach((project) => {
         if (project.status === true){
-            //find active item
             project.todoItems.forEach((item) => {
                 if (item.status === true){
-                    // call deleteitem on active item in active project
                     project.deleteItem(item.title)
                 }
             })

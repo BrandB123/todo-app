@@ -24,11 +24,9 @@ let storageHandling = () => {
     // GET DATA FROM LOCALSTORAGE
     let getStoragePairs = (projectArray) => {
         projectArray.forEach((project) => {
-            // get project from storage
             let storageProjectValue = localStorage.getItem(`project${projectArray.indexOf(project)}`);
             if (storageProjectValue !== "none"){
                 let projectObject = JSON.parse(storageProjectValue);
-                // create items with the data from storage
                 projectObject.forEach((object) => {
                     if (object.title !== "+"){
                         project.createItem(object.title, object.description);
@@ -42,8 +40,3 @@ let storageHandling = () => {
 }
 
 export { storageHandling };
-
-
-
-
-// need to save the todoItems of each project
