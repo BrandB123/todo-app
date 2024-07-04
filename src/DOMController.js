@@ -70,7 +70,9 @@ let DOMController = (projectArrayObject) => {
                     let deleteButton = document.querySelector(".delete-button");
                     if (item.status === true){
                         let activeDescription = document.querySelector(".description-text");
-                        activeDescription.textContent = item.description
+                        // activeDescription.textContent = item.description
+                        activeDescription.innerHTML = item.description;
+
                         editButton.style.visibility = "visible";
                         deleteButton.style.visibility = "visible";
                     }

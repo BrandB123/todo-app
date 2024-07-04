@@ -14,7 +14,6 @@ body{
     font-size: 36px;
     padding: 15px;
     color: #fff;
-    /* background-color: #febe40; */
 }
 
 .main-container{
@@ -27,7 +26,6 @@ body{
     display: flex;
     font-size: 16px;
     gap: 10px;
-    /* background-color: #febe40; */
     margin-left: 10px;
     margin-right: 10px;
 }
@@ -35,10 +33,6 @@ body{
 .project-list-item{
     flex: 1 1 auto;
     padding: 12px 0 0 0;
-    /* border-top: 1px solid #fff;
-    border-right: 1px solid #fff; */
-    /* background-color: #555; */
-    /* color: #ccc; */
     background-color: rgb(0, 0, 0, 0%);
     color: #fff;
     border: 2px solid #fff;
@@ -56,8 +50,6 @@ body{
     grid-template: 100% / 1fr 4fr;
     padding: 10px;
     gap: 10px;
-     /* background-color: #333; */
-    /* color: #ccc; */
     color: #fff;
 }
 
@@ -65,8 +57,6 @@ body{
     display: grid;
     grid-template: repeat(auto-fit, 50px) / 1fr;
     gap: 10px;
-    /* border: 1px solid #000; */
-    /* background-color: #555; */
 }
 
 .todo-list-item{
@@ -105,7 +95,7 @@ body{
     grid-area: edit-button;
     width: 25px;
     height: 25px;
-    background-color: #333;
+    /* background-color: #333; */
     border: none;
 }
 
@@ -114,18 +104,22 @@ body{
     margin-left: auto;
     width: 25px;
     height: 25px;
-    background-color: #333;
+    /* background-color: #333; */
     border: none;
+}
+
+path{
+    fill: #ccc;
 }
 
 .todo-edit{
     position: fixed;
     left: 30%;
-    background-color: white;
     width: 40%;
-    box-shadow: 0 0 50vw 50vw rgb(0, 0, 0, 50%);
-    color: #333;
-    background-color: #ccc;
+    border: 1px solid black;
+    box-shadow: 0 0 10vw 30vw rgb(0, 0, 0, 40%);
+    color: #fff;
+    background-color: #222;
     visibility: hidden;
     padding: 0 20px;
     border-radius: 5px;
@@ -147,44 +141,53 @@ body{
 select{
     grid-area: select-input;
     height: 30px;
+    color: #fff;
+    font-size: 16px;
+    padding-left: 5px;
 }
 
 .edit-content{
     grid-area: edit-content;
 }
 
-textarea{
+.edit-textarea{
     grid-area: textarea-input;
     padding: 5px;
     font-size: 16px;
+    color: #fff;
 }
 
 .edit-submit{
-    grid-area: edit-submit
+    grid-area: edit-submit;
+    color: white;
+    height: 30px;
+    width: 30%;
+    border-radius: 10px;
+    margin: auto;
+    background-color: #333;
 }
 
 .edit-close{
     position: absolute;
     border-top-right-radius: 5px;
-    color: black;
+    color: #ccc;
     top: 0px;
     right: 0px;
     height: 25px;
     width: 25px;
     border-top: 0;
     border-right: 0;
-    border-bottom: 1px solid #333;
-    border-left: 1px solid #333;
+    border-bottom: 1px solid #222;
+    border-left: 1px solid #222;
 }
 
 .todo-add{
     position: fixed;
     left: 30%;
-    background-color: white;
     width: 40%;
-    box-shadow: 0 0 50vw 50vw rgb(0, 0, 0, 50%);
-    color: #333;
-    background-color: #ccc;
+    box-shadow: 0 0 10vw 30vw rgb(0, 0, 0, 40%);
+    color: #fff;
+    background-color: #222;
     visibility: hidden;
     padding: 5px 15px 5px;
     border-radius: 5px;
@@ -207,6 +210,8 @@ textarea{
 .add-title-input{
     grid-area: add-title-input;
     height: 30px;
+    border: 1.5px solid #888;
+    padding-left: 5px;
 }
 
 .add-description{
@@ -217,23 +222,34 @@ textarea{
     grid-area: add-textarea;
     padding: 5px;
     font-size: 16px;
+    border: 1.5px solid #888;
+    color: #fff;
 }
 
 .add-close{
     position: absolute;
     border-top-right-radius: 5px;
-    color: black;
+    color: #ccc;
     top: 0px;
     right: 0px;
     height: 25px;
     width: 25px;
     border-top: 0;
     border-right: 0;
-    border-bottom: 1px solid #333;
-    border-left: 1px solid #333;
+    border-bottom: 1px solid #222;
+    border-left: 1px solid #222;
 }
 
 .add-submit{
     grid-area: add-submit;
+    color: white;
+    height: 30px;
+    width: 30%;
+    border-radius: 10px;
+    margin: auto;
+    background-color: #333;
 }
 
+::placeholder{
+    color: #ccc;
+}

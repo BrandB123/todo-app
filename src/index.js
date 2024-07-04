@@ -72,17 +72,24 @@ const closeAddForm = document.querySelector(".add-close");
 
 addSubmit.addEventListener("click", (event) => {
     event.preventDefault();
-    let addTitle = document.querySelector(".add-title-input");
-    let addDescription = document.querySelector(".add-textarea");
+    let titleInput = document.querySelector(".add-title-input");
+    let descriptionInput = document.querySelector(".add-textarea");
+
+    let addTitle = titleInput.value;
+
+    let addDescription = descriptionInput.value;
+    addDescription = addDescription.split("\n");
+    addDescription = addDescription.join('</br>');
+
     Projects.ProjectArray.forEach((project) => {
         if (project.status === true) {
-            project.createItem(addTitle.value, addDescription.value)
+            project.createItem(addTitle, addDescription)
             project.todoItems[0].status = false;
             project.todoItems[1].status = true;
         }
     });
-    addTitle.value = "";
-    addDescription.value = "";
+    titleInput.value = "";
+    descriptionInput.value = "";
     addForm.style.visibility = "hidden";
     DOMController(Projects);
     STORAGE.setStoragePairs(Projects.ProjectArray);
@@ -92,6 +99,9 @@ addSubmit.addEventListener("click", (event) => {
 closeAddForm.addEventListener("click", (event) => {
     event.preventDefault();
     addForm.style.visibility = "hidden";
+    Projects.ProjectArray[0].todoItems[0].status = false;
+    Projects.ProjectArray[0].todoItems[1].status = true;
+    DOMController(Projects);
 });
 
 
@@ -127,19 +137,22 @@ const editSubmit = document.querySelector(".edit-submit");
 function editFormSubmit(event){
     event.preventDefault();
 	let editSelect = document.querySelector(".edit-select");
-	let editTextArea = document.querySelector(".edit-textarea");
+	let textareaInput = document.querySelector(".edit-textarea");
 
 	Projects.ProjectArray.forEach((project) => {
 	    if (project.status === true){
 		    project.todoItems.forEach((item) => {
 		        if (item.status === true){
                     let itemProperty = editSelect.value.toLowerCase();
-                    project.editItem(item.title, itemProperty, editTextArea.value);
+                    let editTextArea = textareaInput.value;
+                    editTextArea = editTextArea.split("\n");
+                    editTextArea = editTextArea.join('</br>');
+                    project.editItem(item.title, itemProperty, editTextArea);
                 }
 	        });
         };
     });
-    editTextArea.value = "";
+    textareaInput.value = "";
     editForm.style.visibility = "hidden";
 	DOMController(Projects);
     STORAGE.setStoragePairs(Projects.ProjectArray);
