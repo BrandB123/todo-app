@@ -60,11 +60,8 @@ body{
 }
 
 .todo-list-item{
-    /* border-bottom: 1px solid #000; */
     padding: 15px 0px;
     text-align: center;
-    /* background-color: #555; */
-    /* color: #ccc; */
     color: #fff;
     border: 2px solid #fff;
     border-radius: 10px;
@@ -95,7 +92,6 @@ body{
     grid-area: edit-button;
     width: 25px;
     height: 25px;
-    /* background-color: #333; */
     border: none;
 }
 
@@ -104,7 +100,6 @@ body{
     margin-left: auto;
     width: 25px;
     height: 25px;
-    /* background-color: #333; */
     border: none;
 }
 
