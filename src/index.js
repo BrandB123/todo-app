@@ -5,12 +5,10 @@ import { DOMController } from './DOMController.js';
 import { storageHandling } from './storage.js';
 
 
-// create an array for projects to be stored in
 const Projects = projectList();
 const STORAGE = storageHandling();
 
 
-// add preset projects to the Projects array
 let firstProject = createProject("Today");
 Projects.addProject(firstProject);
 let secondProject = createProject("This Week");
@@ -19,13 +17,11 @@ let thirdProject = createProject("This Month");
 Projects.addProject(thirdProject);
 
 
-// add todo items to projects
 if (localStorage.length > 0){
     STORAGE.getStoragePairs(Projects.ProjectArray);
 }
 
 
-// DISPLAY CONTENT ON LOAD
 document.addEventListener("DOMContentLoaded", () => {
     Projects.ProjectArray[0].status = true;
     if (Projects.ProjectArray[0].todoItems[1]){

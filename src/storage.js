@@ -1,6 +1,4 @@
 let storageHandling = () => {
-    // check if localStorage is compatible and set up localStorage on window
-
     // SET UP LOCALSTORAGE
     let setStoragePairs = (projectArray) => {
         projectArray.forEach((project) => {
