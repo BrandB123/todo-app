@@ -8,4 +8,6 @@ This project displays an understanding of the following:
  - JS Modules
  - localStorage
 
+Favicon created with imagine.art
+
 Live preview: https://brandb123.github.io/todo-app/
