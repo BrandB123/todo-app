@@ -1,91 +1,82 @@
-let DOMController = (projectArrayObject) => {
+const DOMController = () => {
 
-    function displayProjects(listOfProjects) {    
-        let projectListDiv = document.querySelector(".project-list");
+    const displayProjects = (projectArray) => {    
+        const projectListDiv = document.querySelector(".project-list");
         projectListDiv.textContent = "";
-        listOfProjects.ProjectArray.forEach((project) => {
-            let listOfProjectsItem = document.createElement("button");
-            project.status === true ? listOfProjectsItem.classList.add("project-list-item", "active") : listOfProjectsItem.classList.add("project-list-item");
-            listOfProjectsItem.textContent = project.title;
-            projectListDiv.appendChild(listOfProjectsItem);
+        projectArray.forEach((project) => {
+            const projectItem = document.createElement("button");
+            project.status === true ? projectItem.classList.add("project-list-item", "active") : projectItem.classList.add("project-list-item");
+            projectItem.textContent = project.title;
+            projectListDiv.appendChild(projectItem);
 
-            listOfProjectsItem.addEventListener("mouseover", (event) => {
+            projectItem.addEventListener("mouseover", (event) => {
                 event.target.style.backgroundColor = "#333";
             });
-            listOfProjectsItem.addEventListener("mouseout", (event) => {
+            projectItem.addEventListener("mouseout", (event) => {
                 project.status === true ? event.target.style.backgroundColor = "#333" : event.target.style.backgroundColor = "#000";
             });
-        })
-    }
-
-    displayProjects(projectArrayObject);
-
-    function displayProjectItems(listOfProjects){    
-        let projectListItemsDiv = document.querySelector(".todo-list");
-        projectListItemsDiv.textContent = "";
-        listOfProjects.ProjectArray.forEach((project) => {
-                if (project.status === true){
-                    project.todoItems.forEach((item) => {
-                        if (item.title !== "+"){
-                            let ProjectTodoItem = document.createElement("button");
-                            item.status === true ? ProjectTodoItem.classList.add("todo-list-item", "active") : ProjectTodoItem.classList.add("todo-list-item");
-                            ProjectTodoItem.textContent = item.title;
-                            projectListItemsDiv.appendChild(ProjectTodoItem); 
-                            ProjectTodoItem.addEventListener("mouseover", (event) => {
-                                event.target.style.backgroundColor = "#333";
-                            }); 
-                            ProjectTodoItem.addEventListener("mouseout", (event) => {
-                                item.status === true ? event.target.style.backgroundColor = "#333" : event.target.style.backgroundColor = "#000";
-                            });
-                        };
-                    });
-                    let AddingTodoItem = document.createElement("button");
-                    project.todoItems[0].status === true ? AddingTodoItem.classList.add("todo-list-item", "active", "add-button") : AddingTodoItem.classList.add("todo-list-item", "add-button");
-                    AddingTodoItem.textContent = project.todoItems[0].title;
-                    projectListItemsDiv.appendChild(AddingTodoItem);
-                    AddingTodoItem.addEventListener("mouseover", (event) => {
-                        event.target.style.backgroundColor = "#222";
-                    });
-                    AddingTodoItem.addEventListener("mouseout", (event) => {
-                        event.target.style.backgroundColor = "#000";
-                    });
-                    const addButton = document.querySelector(".add-button");
-                    const addForm = document.querySelector(".todo-add");    
-                    addButton.addEventListener("click", () => {
-                        addForm.style.visibility = "visible";
-                    });
-                };
         });
     }
-    displayProjectItems(projectArrayObject);
 
 
-    function displayTodoItemDescription(listOfProjects){
-        listOfProjects.ProjectArray.forEach((project) => {
-            if (project.status === true){
-                project.todoItems.forEach((item) => {
-                    let editButton = document.querySelector(".edit-button");
-                    let deleteButton = document.querySelector(".delete-button");
-                    if (item.status === true){
-                        let activeDescription = document.querySelector(".description-text");
-                        activeDescription.innerHTML = item.description;
+    const displayTodoItems = (projectObject) => {    
+        const todoItemsDiv = document.querySelector(".todo-list");
+        todoItemsDiv.textContent = "";
 
-                        editButton.style.visibility = "visible";
-                        deleteButton.style.visibility = "visible";
-                    }
-                    if (item.title === "+"){
-                        editButton.style.visibility = "hidden";
-                        deleteButton.style.visibility = "hidden";
-                    }
+        projectObject.todoItems.forEach((item) => {
+            if (item.title !== "+"){
+                const TodoItem = document.createElement("button");
+                item.status === true ? TodoItem.classList.add("todo-list-item", "active") : TodoItem.classList.add("todo-list-item");
+                TodoItem.textContent = item.title;
+                todoItemsDiv.appendChild(TodoItem); 
+
+                TodoItem.addEventListener("mouseover", (event) => {
+                    event.target.style.backgroundColor = "#333";
+                }); 
+
+                TodoItem.addEventListener("mouseout", (event) => {
+                    item.status === true ? event.target.style.backgroundColor = "#333" : event.target.style.backgroundColor = "#000";
                 });
-            }
+            };
+        });
+
+        const addFormTodoItem = document.createElement("button");
+        projectObject.todoItems[0].status === true ? addFormTodoItem.classList.add("todo-list-item", "active", "add-button") : addFormTodoItem.classList.add("todo-list-item", "add-button");
+        addFormTodoItem.textContent = projectObject.todoItems[0].title;
+        todoItemsDiv.appendChild(addFormTodoItem);
+
+        addFormTodoItem.addEventListener("mouseover", (event) => {
+            event.target.style.backgroundColor = "#222";
+        });
+
+        addFormTodoItem.addEventListener("mouseout", (event) => {
+            event.target.style.backgroundColor = "#000";
+        });
+
+        const addButton = document.querySelector(".add-button");
+        const addForm = document.querySelector(".todo-add");    
+        addButton.addEventListener("click", () => {
+            addForm.style.visibility = "visible";
         });
     }
 
-    displayTodoItemDescription(projectArrayObject);
+
+    const displayDescription = (todoObject) => {
+
+        const editButton = document.querySelector(".edit-button");
+        const deleteButton = document.querySelector(".delete-button");
+        const description = document.querySelector(".description-text");
+        description.innerHTML = todoObject.description;
+        editButton.style.visibility = "visible";
+        deleteButton.style.visibility = "visible";
+        if (todoObject.title === "+"){
+            editButton.style.visibility = "hidden";
+            deleteButton.style.visibility = "hidden";
+        };
+    }
 
 
-    return {DOMController}
+    return {displayProjects, displayTodoItems, displayDescription}
 }
 
 export { DOMController };

@@ -1,19 +1,19 @@
-let createProject =  (projectName) => {
-    let title = projectName;
-    let status = false;
+const createProject =  (projectName) => {
+    const title = projectName;
+    const status = false;
     let todoItems = [{title: "+", description: "", status: false}];
-    let createItem = (title, description) => {
+    const createItem = (title, description) => {
         let item = {title, description, status : "false"};
         todoItems.push(item);
     }
-    let editItem = (itemTitle, property, content) => {
+    const editItem = (itemTitle, property, content) => {
         todoItems.map((item) => {
             if (item.title === itemTitle){
                 item[property] = content;
             }
         });
     }
-    let deleteItem = (itemTitle) => {
+    const deleteItem = (itemTitle) => {
         let itemTitles = todoItems.map((item) => item.title);
         if (itemTitles.includes(itemTitle)){
             let index = itemTitles.indexOf(itemTitle);
@@ -21,7 +21,19 @@ let createProject =  (projectName) => {
             todoItems[1] !== undefined ? todoItems[1].status = true : todoItems[0].status = true;
             }
     }
-    return {title, status, todoItems, createItem, editItem, deleteItem}
+    const activeItem = () => {
+        let activeItem;
+        let activeIndex;
+        todoItems.forEach((item, index) => {
+            if (item.status === true){
+                activeItem = item;
+                activeIndex = index;
+            };
+        });
+        return {activeIndex, activeItem};
+    }
+
+    return {title, status, todoItems, createItem, editItem, deleteItem, activeItem}
 }
 
 export { createProject };
