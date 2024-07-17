@@ -123,10 +123,43 @@ deleteButton.addEventListener("click", () => {
 // DISPLAY ON EDIT TODO ITEM
 const editButton = document.querySelector(".edit-button");
 const editForm = document.querySelector(".todo-edit");
+
+const editDropDown = document.querySelector(".edit-select");
+let textInput = document.querySelector(".edit-textarea");
+editDropDown.addEventListener("change", (event) => {
+    Projects.ProjectArray.forEach((project) => {
+        if (project.status === true){
+		    project.todoItems.forEach((item) => {
+		        if (item.status === true){
+                    if (editDropDown.value === "Title"){
+                        textInput.value =item.title;
+                    } else{
+                        let textAreaDescription = item.description;
+                        textAreaDescription = textAreaDescription.split("</br>");
+                        textAreaDescription = textAreaDescription.join("\n");
+                        textInput.value =textAreaDescription;
+                    };
+                };
+	        });
+        };
+    });
+})
+
 editButton.addEventListener("click", () => {
+    Projects.ProjectArray.forEach((project) => {
+        if (project.status === true){
+		    project.todoItems.forEach((item) => {
+		        if (item.status === true){
+                    textInput.value = item.title;
+                };
+	        });
+        };
+    });
     editForm.style.visibility = "visible";
     editSubmit.addEventListener("click", editFormSubmit);
 });
+
+
 
 const editSubmit = document.querySelector(".edit-submit");
 
@@ -149,6 +182,7 @@ function editFormSubmit(event){
         };
     });
     textareaInput.value = "";
+    editSelect.value = "Title";
     editForm.style.visibility = "hidden";
 	DOMController(Projects);
     STORAGE.setStoragePairs(Projects.ProjectArray);
