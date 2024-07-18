@@ -63,7 +63,10 @@ body{
     border: 2px solid dimgray;
     border-radius: 10px;
     padding: 5px;
-    overflow: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-color: #333 #222;
+    scrollbar-width: thin;
 }
 
 .todo-list-item{
@@ -96,7 +99,10 @@ body{
 .description-text{
     grid-area: description-text;
     font-size: 16px;
-    overflow: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-color: #333 #222;
+    scrollbar-width: thin;
 }
 
 .edit-button{
@@ -163,6 +169,16 @@ option{
     grid-area: edit-content;
 }
 
+.edit-validation-text{
+    visibility: hidden;
+    color: red;
+    position: absolute;
+    top: 75%;
+    width: 95%;
+    font-size: 12px;
+    text-align: right;
+}
+
 .edit-textarea{
     grid-area: textarea-input;
     padding: 5px;
@@ -216,6 +232,17 @@ option{
         "add-textarea"
         "add-submit";
     font-size: 20px;
+    
+}
+
+.add-validation-text{
+    visibility: hidden;
+    color: red;
+    position: absolute;
+    top: 30%;
+    width: 95%;
+    font-size: 12px;
+    text-align: right;
 }
 
 .add-title{

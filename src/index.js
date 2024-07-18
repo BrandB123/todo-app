@@ -76,30 +76,59 @@ const addSubmit = document.querySelector(".add-submit");
 const closeAddForm = document.querySelector(".add-close");
 const titleInput = document.querySelector(".add-title-input");
 const descriptionInput = document.querySelector(".add-textarea");
+const addFormValidation = document.querySelector(".add-validation-text");
+
+titleInput.addEventListener("click", () => {
+    titleInput.style.borderColor = "red";
+    addFormValidation.textContent = "Required field";
+    addFormValidation.style.visibility = "visible";
+})
+
+titleInput.addEventListener("input", () => {
+    const activeProject = Projects.activeProject();
+    const todoItems = activeProject.activeProjectObject.todoItems.map(item => item.title);
+    if (!titleInput.value){
+        titleInput.style.borderColor = "red";
+        addFormValidation.textContent = "Required field";
+        addFormValidation.style.visibility = "visible";
+    } else if (todoItems.includes(titleInput.value)){
+        titleInput.style.borderColor = "red";
+        addFormValidation.textContent = "Todo item with this name already exists";
+        addFormValidation.style.visibility = "visible";
+    } else {
+        titleInput.style.borderColor = "#888";
+        addFormValidation.textContent = "";
+        addFormValidation.style.visibility = "hidden";
+    }
+})
 
 addSubmit.addEventListener("click", (event) => {
     event.preventDefault();
-    const addTitle = titleInput.value;
-    const addDescription = ((descriptionInput) => {
-        let processDescription = descriptionInput.value;
-        processDescription = processDescription.split("\n");
-        processDescription = processDescription.join('</br>');
-        return processDescription
-    })(descriptionInput)
-
     const activeProject = Projects.activeProject();
-    Projects.ProjectArray[activeProject.activeIndex].createItem(addTitle, addDescription);
-    activeProject.activeProjectObject.todoItems[0].status = false;
-    activeProject.activeProjectObject.todoItems[1].status = true;
-    const activeTodoItem = Projects.ProjectArray[activeProject.activeIndex].activeItem();
-    titleInput.value = "";
-    descriptionInput.value = "";
-    addForm.style.visibility = "hidden";
-    updateScreen.displayTodoItems(activeProject.activeProjectObject);
-    updateScreen.displayDescription(activeTodoItem.activeItem);
-    STORAGE.setStoragePairs(Projects.ProjectArray);
-});
-
+    const todoItems = activeProject.activeProjectObject.todoItems.map(item => item.title);
+    if (titleInput.value === "" || todoItems.includes(titleInput.value)){
+        return
+    } else {
+        const addTitle = titleInput.value;
+        const addDescription = ((descriptionInput) => {
+            let processDescription = descriptionInput.value;
+            processDescription = processDescription.split("\n");
+            processDescription = processDescription.join('</br>');
+            return processDescription
+        })(descriptionInput)
+    
+        Projects.ProjectArray[activeProject.activeIndex].createItem(addTitle, addDescription);
+        activeProject.activeProjectObject.todoItems[0].status = false;
+        activeProject.activeProjectObject.todoItems[1].status = true;
+        const activeTodoItem = Projects.ProjectArray[activeProject.activeIndex].activeItem();
+        titleInput.value = "";
+        descriptionInput.value = "";
+        addForm.style.visibility = "hidden";
+        updateScreen.displayTodoItems(activeProject.activeProjectObject);
+        updateScreen.displayDescription(activeTodoItem.activeItem);
+        STORAGE.setStoragePairs(Projects.ProjectArray);
+    };
+})
         
 closeAddForm.addEventListener("click", (event) => {
     event.preventDefault();
@@ -133,7 +162,34 @@ const editForm = document.querySelector(".todo-edit");
 const editDropDown = document.querySelector(".edit-select");
 const textInput = document.querySelector(".edit-textarea");
 const editSubmit = document.querySelector(".edit-submit");
+const editFormValidation = document.querySelector(".edit-validation-text");
 
+
+textInput.addEventListener("click", () => {
+    if (editDropDown.value === "Title" && textInput.value === ""){
+        textInput.style.borderColor = "red";
+        editFormValidation.textContent = "Required field";
+        editFormValidation.style.visibility = "visible";
+    }
+})
+
+textInput.addEventListener("input", () => {
+    const activeProject = Projects.activeProject();
+    const todoItems = activeProject.activeProjectObject.todoItems.map(item => item.title);
+    if (!textInput.value && editDropDown.value === "Title"){
+        textInput.style.borderColor = "red";
+        editFormValidation.textContent = "Required field";
+        editFormValidation.style.visibility = "visible";
+    } else if (todoItems.includes(textInput.value) && editDropDown.value === "Title"){
+        textInput.style.borderColor = "red";
+        editFormValidation.textContent = "Todo item with this name already exists";
+        editFormValidation.style.visibility = "visible";
+    } else {
+        textInput.style.borderColor = "#888";
+        editFormValidation.textContent = "";
+        editFormValidation.style.visibility = "hidden";
+    }
+})
 
 editButton.addEventListener("click", () => {
     const activeProject = Projects.activeProject();
@@ -161,23 +217,50 @@ editDropDown.addEventListener("change", () => {
 function editFormSubmit(event){
     event.preventDefault();
     const activeProject = Projects.activeProject();
-    let activeTodoItem = Projects.ProjectArray[activeProject.activeIndex].activeItem();
-    const itemProperty = editDropDown.value.toLowerCase();
-    const editContent = (() => {
-        let processTextArea = textInput.value;
-        processTextArea = processTextArea.split("\n");
-        processTextArea = processTextArea.join('</br>');
-        return processTextArea;
-    })()
-    Projects.ProjectArray[activeProject.activeIndex].editItem(activeTodoItem.activeItem.title, itemProperty, editContent);
-    activeTodoItem = Projects.ProjectArray[activeProject.activeIndex].activeItem();
-    textInput.value = "";
-    editDropDown.value = "Title";
-    editForm.style.visibility = "hidden";
-    updateScreen.displayTodoItems(activeProject.activeProjectObject);
-    updateScreen.displayDescription(activeTodoItem.activeItem);
-    STORAGE.setStoragePairs(Projects.ProjectArray);
-    editSubmit.removeEventListener("click", editFormSubmit);
+    const todoItems = activeProject.activeProjectObject.todoItems.map(item => item.title);
+    if (editDropDown.value === "Title" && !textInput.value){
+        return
+    } else if (editDropDown.value === "Title" && todoItems.includes(textInput.value)) {
+        return
+    } else {
+        let activeTodoItem = Projects.ProjectArray[activeProject.activeIndex].activeItem();
+        const itemProperty = editDropDown.value.toLowerCase();
+        const editContent = (() => {
+            let processTextArea = textInput.value;
+            processTextArea = processTextArea.split("\n");
+            processTextArea = processTextArea.join('</br>');
+            return processTextArea;
+        })()
+        Projects.ProjectArray[activeProject.activeIndex].editItem(activeTodoItem.activeItem.title, itemProperty, editContent);
+        activeTodoItem = Projects.ProjectArray[activeProject.activeIndex].activeItem();
+        textInput.value = "";
+        editDropDown.value = "Title";
+        editForm.style.visibility = "hidden";
+        updateScreen.displayTodoItems(activeProject.activeProjectObject);
+        updateScreen.displayDescription(activeTodoItem.activeItem);
+        STORAGE.setStoragePairs(Projects.ProjectArray);
+        editSubmit.removeEventListener("click", editFormSubmit);
+    }
+
+
+    // // const activeProject = Projects.activeProject();
+    // let activeTodoItem = Projects.ProjectArray[activeProject.activeIndex].activeItem();
+    // const itemProperty = editDropDown.value.toLowerCase();
+    // const editContent = (() => {
+    //     let processTextArea = textInput.value;
+    //     processTextArea = processTextArea.split("\n");
+    //     processTextArea = processTextArea.join('</br>');
+    //     return processTextArea;
+    // })()
+    // Projects.ProjectArray[activeProject.activeIndex].editItem(activeTodoItem.activeItem.title, itemProperty, editContent);
+    // activeTodoItem = Projects.ProjectArray[activeProject.activeIndex].activeItem();
+    // textInput.value = "";
+    // editDropDown.value = "Title";
+    // editForm.style.visibility = "hidden";
+    // updateScreen.displayTodoItems(activeProject.activeProjectObject);
+    // updateScreen.displayDescription(activeTodoItem.activeItem);
+    // STORAGE.setStoragePairs(Projects.ProjectArray);
+    // editSubmit.removeEventListener("click", editFormSubmit);
 };
 
 
