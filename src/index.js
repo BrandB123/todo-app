@@ -241,26 +241,6 @@ function editFormSubmit(event){
         STORAGE.setStoragePairs(Projects.ProjectArray);
         editSubmit.removeEventListener("click", editFormSubmit);
     }
-
-
-    // // const activeProject = Projects.activeProject();
-    // let activeTodoItem = Projects.ProjectArray[activeProject.activeIndex].activeItem();
-    // const itemProperty = editDropDown.value.toLowerCase();
-    // const editContent = (() => {
-    //     let processTextArea = textInput.value;
-    //     processTextArea = processTextArea.split("\n");
-    //     processTextArea = processTextArea.join('</br>');
-    //     return processTextArea;
-    // })()
-    // Projects.ProjectArray[activeProject.activeIndex].editItem(activeTodoItem.activeItem.title, itemProperty, editContent);
-    // activeTodoItem = Projects.ProjectArray[activeProject.activeIndex].activeItem();
-    // textInput.value = "";
-    // editDropDown.value = "Title";
-    // editForm.style.visibility = "hidden";
-    // updateScreen.displayTodoItems(activeProject.activeProjectObject);
-    // updateScreen.displayDescription(activeTodoItem.activeItem);
-    // STORAGE.setStoragePairs(Projects.ProjectArray);
-    // editSubmit.removeEventListener("click", editFormSubmit);
 };
 
 
